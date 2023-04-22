@@ -7,6 +7,7 @@ import (
 	"github.com/coreos/go-systemd/v22/sdjournal"
 	"log"
 	"os"
+	"strings"
 	"sync"
 	"time"
 )
@@ -115,7 +116,7 @@ func (jw *JournalWatch) readJournal(journal *sdjournal.Journal, logChan chan<- *
 		t := time.Unix(0, int64(ts)*1000)
 
 		event := &cloudwatchlogs.InputLogEvent{
-			Message:   aws.String(msg),
+			Message:   aws.String(strings.Replace(msg, "MESSAGE=", "", 1)),
 			Timestamp: aws.Int64(t.UnixNano() / int64(time.Millisecond)),
 		}
 

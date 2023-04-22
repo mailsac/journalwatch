@@ -4,9 +4,11 @@ build: build-arm64 build-x86
 
 build-arm64:
 	env CGO_ENABLED=1 GOOS=linux GOARCH=arm64 CC=aarch64-linux-gnu-gcc go build -o out/journalwatch-arm64 ./cmd
+	chmod +x out/journalwatch-arm64
 
 build-x86:
 	env CGO_ENABLED=1 GOOS=linux GOARCH=amd64 CC=x86_64-linux-gnu-gcc go build -o out/journalwatch-x86 ./cmd
+	chmod +x out/journalwatch-x86
 
 clean:
 	rm -f out/*

@@ -14,8 +14,8 @@ var logStream = flag.String("log-stream", "", "cloudwatch log stream name, defau
 
 var awsRegion = flag.String("aws-region", "us-west-2", "aws region name")
 
-var logBufferLimit = flag.Int("log-buffer", 10, "log buffer max limit before forward to CloudWatch")
-var timeoutSeconds = flag.Int("buffer-time", 5, "log buffer max time in seconds to foward to cloudwatch regardless of buffer size")
+var logBufferLimit = flag.Int("log-buffer", 20, "log buffer max limit before forward to CloudWatch")
+var timeoutSeconds = flag.Int("buffer-time", 8, "log buffer max time in seconds to foward to cloudwatch regardless of buffer size")
 var help = flag.Bool("h", false, "print help")
 
 func main() {

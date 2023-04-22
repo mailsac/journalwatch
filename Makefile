@@ -17,5 +17,4 @@ prepare-macos:
 	ln -s /usr/local/bin/aarch64-linux-musl-gcc /usr/local/bin/aarch64-linux-gnu-gcc
 
 prepare-linux:
-	sudo apt-get install gcc-aarch64-linux-gnu
-	sudo apt-get install gcc-x86-64-linux-gnu
+	sudo apt-get install -y gcc-aarch64-linux-gnu gcc-x86-64-linux-gnu libsystemd-dev

@@ -67,6 +67,14 @@ func (jw *JournalWatch) Start() error {
 
 	jw.cw = cloudwatchlogs.New(sess)
 
+	jw.cw.CreateLogGroup(&cloudwatchlogs.CreateLogGroupInput{
+		LogGroupName: &jw.config.LogGroupName,
+	})
+	jw.cw.CreateLogStream(&cloudwatchlogs.CreateLogStreamInput{
+		LogGroupName:  &jw.config.LogGroupName,
+		LogStreamName: &jw.config.LogStreamName,
+	})
+
 	logChan := make(chan *cloudwatchlogs.InputLogEvent)
 	defer close(logChan)
 

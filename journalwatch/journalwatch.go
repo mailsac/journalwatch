@@ -80,7 +80,7 @@ func (jw *JournalWatch) Start() error {
 
 	jw.stopped = false
 	jw.wg.Add(2)
-	go jw.putLogEvents(jw.config.LogGroupName, logChan)
+	go jw.putLogEvents(logChan)
 	go jw.readJournal(journal, logChan)
 	jw.wg.Wait()
 
@@ -127,7 +127,7 @@ func (jw *JournalWatch) readJournal(journal *sdjournal.Journal, logChan chan<- *
 	}
 }
 
-func (jw *JournalWatch) putLogEvents(logGroupName string, logChan <-chan *cloudwatchlogs.InputLogEvent) {
+func (jw *JournalWatch) putLogEvents(logChan <-chan *cloudwatchlogs.InputLogEvent) {
 	bufferedEvents := []*cloudwatchlogs.InputLogEvent{}
 	lastSent := time.Now()
 
@@ -144,8 +144,8 @@ func (jw *JournalWatch) putLogEvents(logGroupName string, logChan <-chan *cloudw
 		}
 
 		input := &cloudwatchlogs.PutLogEventsInput{
-			LogGroupName:  aws.String(logGroupName),
-			LogStreamName: aws.String("your_log_stream_name"),
+			LogGroupName:  aws.String(jw.config.LogGroupName),
+			LogStreamName: aws.String(jw.config.LogStreamName),
 			LogEvents:     bufferedEvents,
 		}
 
